@@ -17,7 +17,7 @@ class EnsureEnrolled
         $lesson = $request->route('lesson');
 
         if ($lesson && !auth()->user()->isEnrolledIn($lesson->course)) {
-            return redirect()->route('courses.show', $lesson->course->slug)
+            return redirect()->route('student.courses.show', $lesson->course->slug)
                 ->with('error', 'Anda harus mendaftar ke kursus ini terlebih dahulu.');
         }
 

@@ -28,9 +28,26 @@ class Course extends Model
 
         static::creating(function ($course) {
             if (empty($course->slug)) {
-                $course->slug = Str::slug($course->title);
+                $course->slug = static::generateUniqueSlug(Str::slug($course->title));
             }
         });
+    }
+
+    /**
+     * Buat slug yang unik: jika slug sudah ada, tambahkan suffix angka.
+     * Contoh: belajar-laravel → belajar-laravel-2 → belajar-laravel-3
+     */
+    public static function generateUniqueSlug(string $baseSlug): string
+    {
+        $slug  = $baseSlug;
+        $count = 2;
+
+        while (static::where('slug', $slug)->exists()) {
+            $slug = "{$baseSlug}-{$count}";
+            $count++;
+        }
+
+        return $slug;
     }
 
     // ==========================================

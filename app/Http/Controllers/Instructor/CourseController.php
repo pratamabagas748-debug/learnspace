@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
@@ -35,10 +36,12 @@ class CourseController extends Controller
             'level'       => ['required', 'in:beginner,intermediate,advanced'],
             'duration'    => ['required', 'integer', 'min:1'],
             'status'      => ['required', 'in:draft,published'],
+            'thumbnail'   => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:2048'],
         ]);
 
         $validated['instructor_id'] = auth()->id();
-        $validated['slug'] = Str::slug($validated['title']);
+        // Slug unik: jika ada judul sama, hasilkan belajar-laravel-2, dst.
+        $validated['slug'] = Course::generateUniqueSlug(Str::slug($validated['title']));
 
         // Handle upload thumbnail jika ada
         if ($request->hasFile('thumbnail')) {
@@ -71,9 +74,14 @@ class CourseController extends Controller
             'level'       => ['required', 'in:beginner,intermediate,advanced'],
             'duration'    => ['required', 'integer', 'min:1'],
             'status'      => ['required', 'in:draft,published'],
+            'thumbnail'   => ['nullable', 'image', 'mimes:jpeg,png,webp,jpg', 'max:2048'],
         ]);
 
         if ($request->hasFile('thumbnail')) {
+            // Hapus thumbnail lama jika ada
+            if ($course->thumbnail) {
+                Storage::disk('public')->delete($course->thumbnail);
+            }
             $validated['thumbnail'] = $request->file('thumbnail')->store('thumbnails', 'public');
         }
 

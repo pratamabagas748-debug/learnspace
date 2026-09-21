@@ -39,8 +39,8 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student'])
     Route::get('/courses', [Student\CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/{course:slug}', [Student\CourseController::class, 'show'])->name('courses.show');
     Route::post('/courses/{course}/enroll', [Student\CourseController::class, 'enroll'])->name('courses.enroll');
-    Route::get('/lessons/{lesson}', [Student\LessonController::class, 'show'])->name('lessons.show');
-    Route::post('/lessons/{lesson}/complete', [Student\LessonController::class, 'complete'])->name('lessons.complete');
+    Route::get('/lessons/{lesson}', [Student\LessonController::class, 'show'])->name('lessons.show')->middleware('enrolled');
+    Route::post('/lessons/{lesson}/complete', [Student\LessonController::class, 'complete'])->name('lessons.complete')->middleware('enrolled');
 });
 
 // ==========================================
