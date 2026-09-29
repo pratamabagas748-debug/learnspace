@@ -187,4 +187,81 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tableCard = document.querySelectorAll('div.bg-white.rounded-2xl')[1];
+    const realTableCard = tableCard || document.querySelector('div.bg-white.rounded-2xl');
+    if(!realTableCard) return;
+
+    let toast = document.getElementById('js-toast');
+    if(!toast){
+        toast = document.createElement('div');
+        toast.id = 'js-toast';
+        toast.className = 'fixed bottom-5 right-5 bg-slate-900 text-white text-sm px-4 py-3 rounded-xl shadow-lg hidden z-50';
+        document.body.appendChild(toast);
+    }
+
+    const searchWrapper = document.createElement('div');
+    searchWrapper.className = 'p-5 pb-0 flex flex-wrap gap-2';
+    searchWrapper.innerHTML = `
+        <input id="js-search" placeholder=" Cari kursus..." class="flex-1 min-w-[200px] px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+        <button data-filter="all" class="filter-btn bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-semibold">Semua</button>
+        <button data-filter="Berlangsung" class="filter-btn bg-white border px-4 py-2 rounded-xl text-sm">Berlangsung</button>
+        <button data-filter="Selesai" class="filter-btn bg-white border px-4 py-2 rounded-xl text-sm">Selesai</button>
+    `;
+    realTableCard.prepend(searchWrapper);
+
+    const searchInput = document.getElementById('js-search');
+    const rows = document.querySelectorAll('tbody tr');
+
+    function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    
+    searchInput.value = localStorage.getItem('student_search') || '';
+    if(searchInput.value) searchInput.dispatchEvent(new Event('input'));
+
+    
+    searchInput.addEventListener('input', (e) => {
+        const keyword = e.target.value.toLowerCase();
+        localStorage.setItem('student_search', keyword);
+        let count = 0;
+        rows.forEach(row => {
+            const show = row.innerText.toLowerCase().includes(keyword);
+            row.style.display = show? '' : 'none';
+            if(show) count++;
+        });
+        if(keyword && count === 0) showToast('Gak ada kursus yang cocok');
+    });
+
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.className = 'filter-btn bg-white border px-4 py-2 rounded-xl text-sm');
+            e.currentTarget.className = 'filter-btn bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-semibold';
+            const filter = e.currentTarget.dataset.filter;
+            rows.forEach(row => {
+                row.style.display = (filter === 'all' || row.innerText.includes(filter))? '' : 'none';
+            });
+            showToast(`Filter: ${filter}`);
+        });
+    });
+
+    const haloCard = document.querySelector('.mb-6');
+    if(haloCard) {
+        haloCard.classList.add('cursor-pointer', 'hover:shadow-md', 'transition');
+        haloCard.title = 'Klik untuk motivasi!';
+        haloCard.addEventListener('click', () => {
+            const quotes = ["Keren! Lanjutin 1 pelajaran lagi hari ini?","Konsisten > Cepat. Kamu udah on track!","Gas! 30 menit hari ini = progress gede besok."];
+            showToast(quotes[Math.floor(Math.random()*quotes.length)]);
+        });
+    }
+});
+</script>
+@endpush
 @endsection
