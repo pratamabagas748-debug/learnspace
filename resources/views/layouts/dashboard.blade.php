@@ -77,8 +77,14 @@
             </div>
         </div>
 
-        {{-- Logout --}}
-        <div class="px-3 pb-4">
+        {{-- Profile & Logout --}}
+        <div class="px-3 pb-4 space-y-0.5">
+            <a href="{{ route('profile.edit') }}" class="sidebar-item flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                Edit Profil
+            </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 hover:bg-red-50 hover:text-red-600 transition-all group sidebar-item">
@@ -155,5 +161,6 @@
         }
     });
 </script>
+@stack('scripts')
 </body>
 </html>

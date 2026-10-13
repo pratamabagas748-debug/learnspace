@@ -7,6 +7,7 @@ use App\Http\Controllers\Instructor;
 use App\Http\Controllers\Student;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ==========================================
@@ -29,6 +30,17 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// ==========================================
+// PROFILE ROUTES (all authenticated users)
+// ==========================================
+
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+    Route::put('/', [ProfileController::class, 'update'])->name('update');
+    Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password');
+    Route::delete('/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
+});
 
 // ==========================================
 // STUDENT ROUTES
