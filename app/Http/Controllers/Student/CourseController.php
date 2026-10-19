@@ -69,4 +69,29 @@ class CourseController extends Controller
         return redirect()->route('student.courses.show', $course->slug)
             ->with('success', 'Selamat! Anda berhasil mendaftar ke kursus "' . $course->title . '".');
     }
+
+    /** Tampilkan sertifikat kelulusan resmi */
+    public function certificate(Course $course)
+    {
+        $user = auth()->user();
+
+        $enrollment = Enrollment::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->firstOrFail();
+
+        $progress = $course->getProgressForUser($user);
+
+        if ($progress < 100 && !$enrollment->isCompleted()) {
+            return redirect()->route('student.courses.show', $course->slug)
+                ->with('error', 'Sertifikat hanya dapat diakses setelah menyelesaikan 100% materi kursus.');
+        }
+
+        if (!$enrollment->completed_at) {
+            $enrollment->update(['completed_at' => now()]);
+        }
+
+        $course->load(['instructor', 'category']);
+
+        return view('student.certificate', compact('course', 'enrollment', 'user'));
+    }
 }

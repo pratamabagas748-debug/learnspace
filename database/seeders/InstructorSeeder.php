@@ -11,19 +11,30 @@ class InstructorSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name'     => 'Budi Santoso',
+            'name'     => 'Jeffrey Way',
             'email'    => 'instructor@learnspace.test',
             'password' => Hash::make('password'),
             'role'     => 'instructor',
-            'bio'      => 'Software Engineer dengan 8 tahun pengalaman di bidang web development. Spesialisasi di Laravel dan JavaScript.',
+            'bio'      => 'Founder of Laracasts & Senior Web Engineer. Lebih dari 12 tahun mengajar Laravel, PHP, dan arsitektur web modern kepada jutaan programmer di seluruh dunia.',
+            'avatar'   => 'avatars/instructor_jeffrey.jpg',
         ]);
 
         User::create([
-            'name'     => 'Siti Rahayu',
+            'name'     => 'Dr. Angela Yu',
             'email'    => 'instructor2@learnspace.test',
             'password' => Hash::make('password'),
             'role'     => 'instructor',
-            'bio'      => 'UI/UX Designer berpengalaman dengan fokus pada desain produk digital. Menguasai Figma, Adobe XD, dan prinsip Human-Centered Design.',
+            'bio'      => 'Founder & Lead Instructor di The App Brewery. Pengajar top dunia dalam pemrograman Python, Data Science, Mobile Apps, dan UI/UX Design dengan lebih dari 2 juta murid global.',
+            'avatar'   => 'avatars/instructor2.jpg',
+        ]);
+
+        User::create([
+            'name'     => 'Brad Traversy',
+            'email'    => 'instructor3@learnspace.test',
+            'password' => Hash::make('password'),
+            'role'     => 'instructor',
+            'bio'      => 'Creator of Traversy Media. Ahli full-stack web development yang telah memproduksi ratusan kursus praktis seputar JavaScript, React, dan API modern.',
+            'avatar'   => 'avatars/instructor3.jpg',
         ]);
     }
 }

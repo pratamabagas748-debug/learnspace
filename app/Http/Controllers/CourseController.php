@@ -47,4 +47,39 @@ class CourseController extends Controller
 
         return view('courses.show', compact('course', 'isEnrolled'));
     }
+
+    /** Halaman modul pembelajaran (bisa dibuka minimal 3 materi pertama untuk pratinjau publik/gratis) */
+    public function lesson(Course $course, \App\Models\Lesson $lesson)
+    {
+        abort_if(!$course->isPublished(), 404);
+        abort_if($lesson->course_id !== $course->id, 404);
+
+        $user = auth()->user();
+        $isEnrolled = $user && $user->isEnrolledIn($course);
+
+        // Jika bukan 3 materi pertama dan belum terdaftar, redirect ke show dengan notifikasi
+        if (!$lesson->isFreePreview() && !$isEnrolled) {
+            return redirect()->route('courses.show', $course->slug)
+                ->with('info', 'Materi ke-' . $lesson->order . ' terkunci. Silakan daftar ke kursus untuk membuka seluruh materi pembelajaran.');
+        }
+
+        $course->load(['category', 'instructor', 'lessons']);
+
+        $prevLesson = $course->lessons->where('order', '<', $lesson->order)->last();
+        $nextLesson = $course->lessons->where('order', '>', $lesson->order)->first();
+
+        $isCompleted = false;
+        $completedLessonIds = [];
+        if ($user) {
+            $isCompleted = $lesson->isCompletedBy($user);
+            $completedLessonIds = \App\Models\LessonProgress::where('user_id', $user->id)
+                ->whereIn('lesson_id', $course->lessons->pluck('id'))
+                ->pluck('lesson_id')
+                ->toArray();
+        }
+
+        return view('courses.lesson', compact(
+            'course', 'lesson', 'isEnrolled', 'prevLesson', 'nextLesson', 'isCompleted', 'completedLessonIds'
+        ));
+    }
 }

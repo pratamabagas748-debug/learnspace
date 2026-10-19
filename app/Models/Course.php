@@ -130,4 +130,21 @@ class Course extends Model
             return "{$minutes} menit";
         }
     }
+
+    public function getThumbnailUrlAttribute(): string
+    {
+        if (!$this->thumbnail) {
+            return asset('images/courses/laravel.jpg');
+        }
+
+        if (str_starts_with($this->thumbnail, 'http://') || str_starts_with($this->thumbnail, 'https://')) {
+            return $this->thumbnail;
+        }
+
+        if (file_exists(public_path('images/' . $this->thumbnail))) {
+            return asset('images/' . $this->thumbnail);
+        }
+
+        return asset('storage/' . $this->thumbnail);
+    }
 }

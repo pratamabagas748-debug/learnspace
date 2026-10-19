@@ -42,11 +42,25 @@
                  style="width: {{ $progress }}%"></div>
         </div>
         @if($progress >= 100)
-            <div class="mt-4 bg-emerald-50 border border-emerald-200 rounded-xl py-3 px-4 flex items-center gap-3">
-                <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
-                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <div class="mt-5 bg-gradient-to-r from-amber-500/10 via-amber-400/15 to-yellow-500/10 border border-amber-300 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-2xl flex items-center justify-center shrink-0 shadow-md">
+                        <svg class="w-6 h-6 text-slate-950 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-amber-950 flex items-center gap-2">
+                            <span>Sertifikat Kelulusan Siap Diterbitkan!</span>
+                            <span class="text-[10px] bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Resmi</span>
+                        </h3>
+                        <p class="text-xs text-amber-800/90 mt-0.5">Selamat! Anda telah menyelesaikan seluruh materi. Klaim dan cetak sertifikat resmi Anda sekarang.</p>
+                    </div>
                 </div>
-                <p class="text-emerald-700 font-semibold text-sm">🎉 Selamat! Anda telah menyelesaikan semua materi kursus ini!</p>
+                <a href="{{ route('student.courses.certificate', $course->slug) }}"
+                   target="_blank"
+                   class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 shadow-md shadow-amber-500/20 hover:scale-[1.02] transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Lihat & Cetak Sertifikat
+                </a>
             </div>
         @endif
     </div>

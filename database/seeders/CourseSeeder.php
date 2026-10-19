@@ -14,6 +14,7 @@ class CourseSeeder extends Seeder
     {
         $instructor1 = User::where('email', 'instructor@learnspace.test')->first();
         $instructor2 = User::where('email', 'instructor2@learnspace.test')->first();
+        $instructor3 = User::where('email', 'instructor3@learnspace.test')->first() ?? $instructor1;
 
         $webDev    = Category::where('slug', 'web-development')->first();
         $mobile    = Category::where('slug', 'mobile-development')->first();
@@ -30,15 +31,17 @@ class CourseSeeder extends Seeder
                 'level'         => 'beginner',
                 'duration'      => 480,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/laravel.jpg',
             ],
             [
                 'title'         => 'JavaScript Modern: ES6+ dan Asynchronous Programming',
                 'description'   => 'Kuasai JavaScript modern dengan ES6+, Promises, Async/Await, dan konsep-konsep penting untuk pengembangan web profesional.',
                 'category_id'   => $webDev->id,
-                'instructor_id' => $instructor1->id,
+                'instructor_id' => $instructor3->id,
                 'level'         => 'intermediate',
                 'duration'      => 360,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/javascript.jpg',
             ],
             [
                 'title'         => 'HTML & CSS: Membangun Website yang Indah',
@@ -48,6 +51,7 @@ class CourseSeeder extends Seeder
                 'level'         => 'beginner',
                 'duration'      => 240,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/html-css.jpg',
             ],
             [
                 'title'         => 'Desain UI/UX dengan Figma: Panduan Lengkap',
@@ -57,6 +61,7 @@ class CourseSeeder extends Seeder
                 'level'         => 'beginner',
                 'duration'      => 300,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/figma.jpg',
             ],
             [
                 'title'         => 'User Research dan Usability Testing',
@@ -66,6 +71,7 @@ class CourseSeeder extends Seeder
                 'level'         => 'intermediate',
                 'duration'      => 270,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/user-research.jpg',
             ],
             [
                 'title'         => 'Python untuk Data Science: Pandas dan Matplotlib',
@@ -75,6 +81,7 @@ class CourseSeeder extends Seeder
                 'level'         => 'intermediate',
                 'duration'      => 420,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/python.jpg',
             ],
             [
                 'title'         => 'Digital Marketing: Strategi SEO & Media Sosial',
@@ -84,15 +91,17 @@ class CourseSeeder extends Seeder
                 'level'         => 'beginner',
                 'duration'      => 200,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/digital-marketing.jpg',
             ],
             [
                 'title'         => 'React Native: Bangun Aplikasi Mobile Cross-Platform',
                 'description'   => 'Buat aplikasi mobile Android dan iOS menggunakan React Native. Satu codebase untuk dua platform sekaligus.',
                 'category_id'   => $mobile->id,
-                'instructor_id' => $instructor1->id,
+                'instructor_id' => $instructor3->id,
                 'level'         => 'advanced',
                 'duration'      => 540,
                 'status'        => 'published',
+                'thumbnail'     => 'courses/react-native.jpg',
             ],
         ];
 

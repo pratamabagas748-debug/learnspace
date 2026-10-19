@@ -86,4 +86,21 @@ class User extends Authenticatable
     {
         return $this->enrollments()->where('course_id', $course->id)->exists();
     }
+
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (!$this->avatar) {
+            return null;
+        }
+
+        if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+            return $this->avatar;
+        }
+
+        if (file_exists(public_path('images/' . $this->avatar))) {
+            return asset('images/' . $this->avatar);
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
 }

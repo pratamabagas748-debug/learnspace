@@ -31,9 +31,9 @@
                         <span class="hidden sm:inline">Dashboard</span>
                         <svg class="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                     </a>
-                    @if(auth()->user()->avatar)
+                    @if(auth()->user()->avatar_url)
                         <a href="{{ route('profile.edit') }}" class="w-8 h-8 rounded-full overflow-hidden border-2 border-slate-100 hover:border-indigo-300 transition-colors shrink-0">
-                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="" class="w-full h-full object-cover">
+                            <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
                         </a>
                     @else
                         <a href="{{ route('profile.edit') }}" class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold border-2 border-white hover:border-indigo-200 transition-colors shrink-0">
