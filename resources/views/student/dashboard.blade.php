@@ -5,7 +5,7 @@
 
 @section('topbar-actions')
 <a href="{{ route('courses.index') }}"
-   class="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
+   class="hidden sm:inline-flex items-center gap-2 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
     Jelajahi Kursus
 </a>
@@ -234,7 +234,7 @@
             <p class="font-bold text-slate-700 mb-1">Belum ada kursus</p>
             <p class="text-slate-400 text-sm mb-5">Mulai perjalanan belajarmu dengan mendaftar kursus pertama!</p>
             <a href="{{ route('courses.index') }}"
-               class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
+               class="inline-flex items-center gap-2 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 Jelajahi Kursus
             </a>

@@ -5,7 +5,7 @@
 
 @section('topbar-actions')
 <a href="{{ route('instructor.courses.create') }}"
-   class="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
+   class="hidden sm:inline-flex items-center gap-2 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
     Buat Kursus
 </a>
@@ -75,7 +75,7 @@
 <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
         <h2 class="font-bold text-slate-900 text-sm">Kursus Saya</h2>
-        <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-colors">
+        <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center gap-1.5 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-colors">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
             Tambah
         </a>
@@ -123,7 +123,7 @@
         </div>
         <p class="font-semibold text-slate-600 mb-1">Belum ada kursus</p>
         <p class="text-slate-400 text-sm mb-4">Mulai buat kursus pertama Anda sekarang.</p>
-        <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center gap-2 bg-indigo-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition-colors">
+        <a href="{{ route('instructor.courses.create') }}" class="inline-flex items-center gap-2 bg-[#FF7A1A] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#E8650B] transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             Buat Kursus Pertama
         </a>

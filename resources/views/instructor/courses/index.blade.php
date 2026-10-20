@@ -5,7 +5,7 @@
 
 @section('topbar-actions')
 <a href="{{ route('instructor.courses.create') }}"
-   class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
+   class="inline-flex items-center bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
     Buat Kursus
 </a>
@@ -94,7 +94,7 @@
     <p class="font-bold text-slate-700 mb-1">Belum ada kursus</p>
     <p class="text-slate-400 text-sm mb-5">Buat kursus pertama Anda dan mulai berbagi ilmu.</p>
     <a href="{{ route('instructor.courses.create') }}"
-       class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors">
+       class="inline-flex items-center gap-2 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Buat Kursus Pertama
     </a>

@@ -82,7 +82,7 @@
                 <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
                     <h2 class="font-bold text-slate-900 text-sm">Daftar Materi ({{ $course->lessons->count() }})</h2>
                     <a href="{{ route('instructor.lessons.create', $course->id) }}"
-                       class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-colors">
+                       class="inline-flex items-center gap-1.5 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-colors">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                         Tambah Materi
                     </a>
