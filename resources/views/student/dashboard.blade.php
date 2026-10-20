@@ -72,10 +72,64 @@
             </div>
             @endforeach
         </div>
+      </div>
+</div>
+
+{{-- Gamifikasi: XP, Badge, dan Learning Streak --}}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+
+    {{-- XP Points --}}
+    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center text-xl">
+                ⭐
+            </div>
+            <div>
+                <p class="text-sm text-slate-500">Total XP</p>
+                <p class="text-2xl font-extrabold text-slate-900">
+                    {{ auth()->user()->xp_points ?? 0 }}
+                </p>
+            </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3">Dapatkan 10 XP setiap menyelesaikan materi baru.</p>
     </div>
+
+    {{-- Badge --}}
+    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 bg-indigo-100 rounded-xl flex items-center justify-center text-xl">
+                🏅
+            </div>
+            <div>
+                <p class="text-sm text-slate-500">Badge Diperoleh</p>
+                <p class="text-2xl font-extrabold text-slate-900">
+                    {{ \Illuminate\Support\Facades\DB::table('user_badges')->where('user_id', auth()->id())->count() }}
+                </p>
+            </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3">Selesaikan materi untuk mendapatkan badge.</p>
+    </div>
+
+    {{-- Learning Streak --}}
+    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 bg-orange-100 rounded-xl flex items-center justify-center text-xl">
+                🔥
+            </div>
+            <div>
+                <p class="text-sm text-slate-500">Learning Streak</p>
+                <p class="text-2xl font-extrabold text-slate-900">
+                    {{ $streak }} hari
+                </p>
+            </div>
+        </div>
+        <p class="text-xs text-slate-400 mt-3">Belajar secara rutin setiap hari untuk menjaga streak.</p>
+    </div>
+
 </div>
 
 {{-- Continue Learning --}}
+
 @if($continuelearning->isNotEmpty())
 <div class="mb-8">
     <div class="flex items-center justify-between mb-4">
