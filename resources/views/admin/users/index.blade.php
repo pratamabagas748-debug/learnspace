@@ -5,7 +5,7 @@
 
 @section('topbar-actions')
 <a href="{{ route('admin.users.create') }}"
-   class="inline-flex items-center gap-1.5 bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
+   class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
     Tambah User
 </a>

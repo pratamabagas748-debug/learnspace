@@ -105,7 +105,7 @@
                class="text-xs font-bold px-4 py-2 rounded-xl transition-all shrink-0
                {{ $isCompleted
                    ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                   : 'bg-[#FF7A1A] text-white hover:bg-[#E8650B] hover:shadow-md hover:shadow-indigo-200' }}">
+                   : 'bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-md hover:shadow-indigo-200' }}">
                 {{ $isCompleted ? '↩ Ulangi' : '→ Belajar' }}
             </a>
         </div>

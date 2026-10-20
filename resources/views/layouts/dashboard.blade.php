@@ -27,7 +27,7 @@
         }
     </style>
 </head>
-<body class="bg-[#F4F7FF] antialiased text-slate-900">
+<body class="bg-slate-50 antialiased text-slate-900">
 
 {{-- Mobile Overlay --}}
 <div id="mobile-overlay" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden" onclick="toggleSidebar()"></div>
@@ -40,12 +40,12 @@
         {{-- Logo --}}
         <div class="h-16 flex items-center justify-between px-5 border-b border-slate-100 shrink-0">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
-                <div class="w-8 h-8 bg-gradient-to-br from-[#153EBD] to-[#4169E1] rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                     </svg>
                 </div>
-                <span class="font-bold text-slate-800 tracking-tight">Learn<span class="text-[#153EBD]">Space</span></span>
+                <span class="font-bold text-slate-800 tracking-tight">Learn<span class="text-indigo-600">Space</span></span>
             </a>
             {{-- Close button mobile --}}
             <button onclick="toggleSidebar()" class="lg:hidden p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
@@ -121,7 +121,7 @@
                 @yield('topbar-actions')
 
                 {{-- Avatar --}}
-                <div class="w-8 h-8 bg-gradient-to-br from-[#153EBD] to-[#4169E1] rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 select-none">
+                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 select-none">
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </div>
             </div>

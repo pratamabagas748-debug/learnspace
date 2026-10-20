@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="flex gap-3 pt-2">
-            <button type="submit" class="bg-[#FF7A1A] hover:bg-[#E8650B] text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors">Simpan</button>
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors">Simpan</button>
             <a href="{{ route('instructor.courses.index') }}" class="text-sm text-slate-600 px-4 py-2.5 rounded-xl hover:bg-slate-100 transition-colors">Batal</a>
         </div>
     </div>

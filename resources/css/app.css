@@ -2,12 +2,10 @@
 
 /* Custom CSS Variables */
 :root {
-    --color-primary: #153EBD;
-    --color-primary-dark: #102F91;
-    --color-secondary: #4169E1;
-    --color-accent: #FF7A1A;
-    --color-background: #F4F7FF;
-    --color-surface: #FFFFFF;
+    --color-primary: #4F46E5;
+    --color-primary-dark: #3730a3;
+    --color-secondary: #7C3AED;
+    --color-accent: #06B6D4;
 }
 
 /* Custom utilities */
