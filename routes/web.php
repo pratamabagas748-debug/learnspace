@@ -7,6 +7,7 @@ use App\Http\Controllers\Instructor;
 use App\Http\Controllers\Student;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ==========================================
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{course:slug}/lessons/{lesson}', [CourseController::class, 'lesson'])->name('courses.lessons.show');
+Route::get('/verify-certificate/{code}', [HomeController::class, 'verifyCertificate'])->name('certificate.verify');
 
 // ==========================================
 // AUTH ROUTES
@@ -31,6 +34,17 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // ==========================================
+// PROFILE ROUTES (all authenticated users)
+// ==========================================
+
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+    Route::put('/', [ProfileController::class, 'update'])->name('update');
+    Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password');
+    Route::delete('/avatar', [ProfileController::class, 'deleteAvatar'])->name('avatar.delete');
+});
+
+// ==========================================
 // STUDENT ROUTES
 // ==========================================
 
@@ -38,6 +52,7 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student'])
     Route::get('/dashboard', [Student\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/courses', [Student\CourseController::class, 'index'])->name('courses.index');
     Route::get('/courses/{course:slug}', [Student\CourseController::class, 'show'])->name('courses.show');
+    Route::get('/courses/{course:slug}/certificate', [Student\CourseController::class, 'certificate'])->name('courses.certificate');
     Route::post('/courses/{course}/enroll', [Student\CourseController::class, 'enroll'])->name('courses.enroll');
     Route::get('/lessons/{lesson}', [Student\LessonController::class, 'show'])->name('lessons.show')->middleware('enrolled');
     Route::post('/lessons/{lesson}/complete', [Student\LessonController::class, 'complete'])->name('lessons.complete')->middleware('enrolled');

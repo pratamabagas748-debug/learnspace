@@ -21,4 +21,13 @@ class HomeController extends Controller
 
         return view('home.index', compact('featuredCourses', 'categories'));
     }
+
+    /** Halaman verifikasi publik sertifikat digital */
+    public function verifyCertificate(string $code)
+    {
+        $enrollment = \App\Models\Enrollment::findByCertificateNumber($code);
+        $isValid = !is_null($enrollment);
+
+        return view('certificate-verify', compact('enrollment', 'code', 'isValid'));
+    }
 }

@@ -15,8 +15,10 @@ class LessonController extends Controller
         $user = auth()->user();
         $course = $lesson->course->load(['lessons', 'instructor']);
 
-        // Pastikan sudah enroll
-        abort_unless($user->isEnrolledIn($course), 403);
+        $isEnrolled = $user->isEnrolledIn($course);
+
+        // Minimal 3 materi pertama selalu bisa dibuka bebas
+        abort_unless($isEnrolled || $lesson->isFreePreview(), 403);
 
         $isCompleted = $lesson->isCompletedBy($user);
 
@@ -31,7 +33,7 @@ class LessonController extends Controller
             ->toArray();
 
         return view('student.lessons.show', compact(
-            'lesson', 'course', 'isCompleted', 'prevLesson', 'nextLesson', 'completedLessonIds'
+            'lesson', 'course', 'isCompleted', 'isEnrolled', 'prevLesson', 'nextLesson', 'completedLessonIds'
         ));
     }
 
@@ -41,8 +43,11 @@ class LessonController extends Controller
         $user = auth()->user();
         $course = $lesson->course;
 
-        // Pastikan sudah enroll
-        abort_unless($user->isEnrolledIn($course), 403);
+        // Jika belum enroll, arahkan untuk mendaftar terlebih dahulu agar progress tersimpan
+        if (!$user->isEnrolledIn($course)) {
+            return redirect()->route('student.courses.show', $course->slug)
+                ->with('info', 'Silakan klik "Daftar Kursus" untuk dapat menyimpan dan mencatat progres materi Anda.');
+        }
 
         // Simpan progress (ignore jika sudah ada - karena ada unique constraint)
         LessonProgress::firstOrCreate([
