@@ -28,7 +28,40 @@ class DashboardController extends Controller
 
         // Kursus yang baru diakses (untuk "Continue Learning")
         $continuelearning = $activeEnrollments->take(3);
+// Hitung Learning Streak berdasarkan tanggal belajar
+$completedDates = $user->lessonProgress()
+    ->whereNotNull('completed_at')
+    ->get()
+    ->map(fn ($progress) => $progress->completed_at->toDateString())
+    ->unique()
+    ->sortDesc()
+    ->values();
 
-        return view('student.dashboard', compact('stats', 'enrollments', 'continuelearning'));
+$today = now()->toDateString();
+$yesterday = now()->subDay()->toDateString();
+
+$streak = 0;
+
+if ($completedDates->contains($today) || $completedDates->contains($yesterday)) {
+    $expectedDate = $completedDates->contains($today)
+        ? now()->startOfDay()
+        : now()->subDay()->startOfDay();
+
+    foreach ($completedDates as $date) {
+        if ($date !== $expectedDate->toDateString()) {
+            break;
+        }
+
+        $streak++;
+        $expectedDate->subDay();
+    }
+}
+
+         return view('student.dashboard', compact(
+            'stats',
+            'enrollments',
+            'continuelearning',
+            'streak'
+        ));
     }
 }
