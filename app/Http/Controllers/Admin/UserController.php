@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,8 +28,7 @@ class UserController extends Controller
             'role'     => ['required', 'in:admin,instructor,student'],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
-
+        // Password otomatis di-hash oleh cast 'hashed' di model User
         User::create($validated);
 
         return redirect()->route('admin.users.index')
@@ -51,9 +49,10 @@ class UserController extends Controller
         ]);
 
         // Update password hanya jika diisi
+        // Password otomatis di-hash oleh cast 'hashed' di model User
         if ($request->filled('password')) {
             $request->validate(['password' => ['string', 'min:8']]);
-            $validated['password'] = Hash::make($request->password);
+            $validated['password'] = $request->password;
         }
 
         $user->update($validated);

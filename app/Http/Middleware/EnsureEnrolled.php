@@ -21,6 +21,12 @@ class EnsureEnrolled
             return $next($request);
         }
 
+        // Jika belum login, redirect ke halaman login
+        if (!auth()->check()) {
+            return redirect()->route('login')
+                ->with('error', 'Silakan login terlebih dahulu untuk mengakses materi ini.');
+        }
+
         if ($lesson && !auth()->user()->isEnrolledIn($lesson->course)) {
             return redirect()->route('student.courses.show', $lesson->course->slug)
                 ->with('error', 'Anda harus mendaftar ke kursus ini terlebih dahulu untuk mengakses materi ke-' . $lesson->order . '.');

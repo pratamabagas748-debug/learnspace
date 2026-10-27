@@ -88,13 +88,14 @@ class Course extends Model
     /** Hitung progress seorang student di kursus ini */
     public function getProgressForUser(User $user): int
     {
-        $totalLessons = $this->lessons()->count();
+        $lessons = $this->lessons;
+        $totalLessons = $lessons->count();
 
         if ($totalLessons === 0) {
             return 0;
         }
 
-        $lessonIds = $this->lessons()->pluck('id');
+        $lessonIds = $lessons->pluck('id');
         $completedLessons = LessonProgress::where('user_id', $user->id)
             ->whereIn('lesson_id', $lessonIds)
             ->count();

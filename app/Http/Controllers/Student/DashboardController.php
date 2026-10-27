@@ -28,40 +28,22 @@ class DashboardController extends Controller
 
         // Kursus yang baru diakses (untuk "Continue Learning")
         $continuelearning = $activeEnrollments->take(3);
-// Hitung Learning Streak berdasarkan tanggal belajar
-$completedDates = $user->lessonProgress()
-    ->whereNotNull('completed_at')
-    ->get()
-    ->map(fn ($progress) => $progress->completed_at->toDateString())
-    ->unique()
-    ->sortDesc()
-    ->values();
+        // Hitung Learning Streak menggunakan helper
+        $streak = LeaderboardController::calculateStreak($user);
 
-$today = now()->toDateString();
-$yesterday = now()->subDay()->toDateString();
+        // Gamifikasi: Misi Harian & Liga Mingguan
+        $quests = LeaderboardController::getDailyQuestsData($user, $streak);
+        $league = LeaderboardController::getLeagueTier($user->xp_points ?? 0);
+        $weeklyTopThree = LeaderboardController::getWeeklyLeaderboard(3);
 
-$streak = 0;
-
-if ($completedDates->contains($today) || $completedDates->contains($yesterday)) {
-    $expectedDate = $completedDates->contains($today)
-        ? now()->startOfDay()
-        : now()->subDay()->startOfDay();
-
-    foreach ($completedDates as $date) {
-        if ($date !== $expectedDate->toDateString()) {
-            break;
-        }
-
-        $streak++;
-        $expectedDate->subDay();
-    }
-}
-
-         return view('student.dashboard', compact(
+        return view('student.dashboard', compact(
             'stats',
             'enrollments',
             'continuelearning',
-            'streak'
+            'streak',
+            'quests',
+            'league',
+            'weeklyTopThree'
         ));
     }
 }

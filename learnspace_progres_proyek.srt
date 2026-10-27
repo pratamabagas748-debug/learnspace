@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:09,859
+Halo Bapak dan Ibu Dosen. Berikut adalah demonstrasi progres proyek platform LearnSpace.
+
+2
+00:00:09,859 --> 00:00:21,839
+Katalog kursus dilengkapi pencarian cepat dan pengajar terkemuka dunia.
+
+3
+00:00:21,839 --> 00:00:32,210
+Detail kursus bergaya modern luxury dengan minimal tiga modul gratis untuk publik.
+
+4
+00:00:32,210 --> 00:00:40,439
+Kurikulum silabus komprehensif berbahasa Indonesia dengan navigasi intuitif.
+
+5
+00:00:40,439 --> 00:00:48,459
+Materi coding lengkap dengan Prism.js Syntax Highlighting dan tombol Salin Kode.
+
+6
+00:00:48,459 --> 00:00:58,779
+Fitur Live Code Playground interaktif: uji HTML, CSS, dan JavaScript langsung di browser.
+
+7
+00:00:58,779 --> 00:01:07,399
+Eksekusi kode secara instan dengan pratinjau live sandbox dan Virtual Console.
+
+8
+00:01:07,399 --> 00:01:16,899
+Sertifikat kelulusan digital mewah berstandar industri setelah 100% materi selesai.
+
+9
+00:01:16,899 --> 00:01:27,319
+Verifikasi keaslian sertifikat publik secara online dengan kode unik kredensial.

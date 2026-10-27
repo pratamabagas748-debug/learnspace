@@ -66,6 +66,9 @@
         @endif
     </div>
 
+    {{-- Focus Mode (Pomodoro + Ambient Music + Zen Mode) --}}
+    <x-focus-room-bar :course="$course" :lesson="$lesson" />
+
     {{-- Video Player --}}
     @if($lesson->video_url)
     <div class="bg-black rounded-2xl overflow-hidden mb-5 shadow-xl aspect-video">

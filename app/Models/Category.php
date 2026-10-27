@@ -18,7 +18,16 @@ class Category extends Model
 
         static::creating(function ($category) {
             if (empty($category->slug)) {
-                $category->slug = Str::slug($category->name);
+                $slug  = Str::slug($category->name);
+                $count = 2;
+                $original = $slug;
+
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = "{$original}-{$count}";
+                    $count++;
+                }
+
+                $category->slug = $slug;
             }
         });
     }
