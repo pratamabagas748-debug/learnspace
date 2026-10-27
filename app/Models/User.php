@@ -17,6 +17,10 @@ class User extends Authenticatable
         'role',
         'avatar',
         'bio',
+        'xp_points',
+        'provider',
+        'provider_id',
+        'provider_avatar',
     ];
 
     protected $hidden = [
@@ -85,6 +89,24 @@ class User extends Authenticatable
     public function isEnrolledIn(Course $course): bool
     {
         return $this->enrollments()->where('course_id', $course->id)->exists();
+    }
+
+    /** Badge yang dimiliki user */
+    public function badges()
+    {
+        return $this->hasMany(UserBadge::class);
+    }
+
+    /** Log XP user */
+    public function xpLogs()
+    {
+        return $this->hasMany(XpLog::class);
+    }
+
+    /** Klaim misi harian user */
+    public function quests()
+    {
+        return $this->hasMany(UserQuest::class);
     }
 
     public function getAvatarUrlAttribute(): ?string

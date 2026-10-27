@@ -21,6 +21,14 @@
                    class="px-4 py-2 rounded-xl text-sm font-medium {{ request()->routeIs('courses.*') ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50' }} transition-all">
                     Kursus
                 </a>
+                @auth
+                    @if(auth()->user()->isStudent())
+                    <a href="{{ route('student.leaderboard') }}"
+                       class="px-4 py-2 rounded-xl text-sm font-medium {{ request()->routeIs('student.leaderboard') ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50' }} transition-all flex items-center gap-1.5">
+                        <span>🏆</span> Leaderboard
+                    </a>
+                    @endif
+                @endauth
             </div>
 
             {{-- Auth --}}

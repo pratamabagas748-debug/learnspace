@@ -27,6 +27,11 @@
     Kursus Saya
 </x-nav-item>
 
+<x-nav-item href="{{ route('student.leaderboard') }}" :active="request()->routeIs('student.leaderboard')"
+    icon='<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>'>
+    Leaderboard & Misi
+</x-nav-item>
+
 <x-nav-item href="{{ route('courses.index') }}"
     icon='<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>'>
     Jelajahi Kursus
@@ -127,6 +132,140 @@
     </div>
 
 </div>
+
+{{-- Daily Quests & Weekly League Section --}}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+
+    {{-- Daily Quests --}}
+    <div class="lg:col-span-2 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h3 class="font-extrabold text-slate-900 flex items-center gap-2">
+                    <span>🎯</span> Misi Harian (Daily Quests)
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">Selesaikan misi sebelum tengah malam untuk klaim bonus XP!</p>
+            </div>
+            <a href="{{ route('student.leaderboard') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
+                Buka Leaderboard →
+            </a>
+        </div>
+
+        <div class="space-y-3">
+            @foreach($quests as $key => $q)
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border {{ $q['claimed'] ? 'bg-slate-50 border-slate-200 opacity-70' : ($q['completed'] ? 'bg-emerald-50/60 border-emerald-200' : 'bg-slate-50/50 border-slate-100') }}">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-2xl shrink-0">{{ $q['icon'] }}</span>
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2">
+                            <p class="text-xs font-bold text-slate-800 truncate">{{ $q['title'] }}</p>
+                            <span class="text-[10px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">
+                                +{{ $q['reward_xp'] }} XP
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 truncate mt-0.5">{{ $q['description'] }}</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 shrink-0 sm:self-center">
+                    <span class="text-xs font-bold text-slate-600">{{ $q['current'] }}/{{ $q['target'] }}</span>
+                    @if($q['claimed'])
+                        <span class="text-xs font-bold text-slate-400 bg-slate-200/80 px-3 py-1.5 rounded-lg flex items-center gap-1">
+                            ✓ Diklaim
+                        </span>
+                    @elseif($q['completed'])
+                        <button onclick="claimDashboardQuest('{{ $key }}', this)"
+                                class="text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded-lg shadow-sm transition-all hover:scale-105">
+                            🎁 Klaim +{{ $q['reward_xp'] }} XP
+                        </button>
+                    @else
+                        <span class="text-xs text-slate-400 bg-white border border-slate-200 px-2.5 py-1 rounded-lg">
+                            Sedang Berjalan
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- League Tier & Top 3 Mini Leaderboard --}}
+    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <div>
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Liga Mingguan</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full {{ $league['bg'] }}">
+                    {{ $league['badge'] }} {{ $league['name'] }}
+                </span>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-4">Top 3 siswa dengan XP tertinggi minggu ini:</p>
+
+            <div class="space-y-2.5 mb-4">
+                @forelse($weeklyTopThree as $idx => $leader)
+                <div class="flex items-center gap-2.5 p-2 rounded-xl {{ $leader->id === auth()->id() ? 'bg-indigo-50 border border-indigo-100' : 'bg-slate-50' }}">
+                    <span class="text-sm font-black w-5 text-center">
+                        @if($idx === 0) 🥇 @elseif($idx === 1) 🥈 @elseif($idx === 2) 🥉 @else #{{ $idx+1 }} @endif
+                    </span>
+                    <div class="w-7 h-7 rounded-full overflow-hidden bg-slate-200 shrink-0">
+                        @if($leader->avatar_url)
+                            <img src="{{ $leader->avatar_url }}" alt="{{ $leader->name }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center">
+                                {{ strtoupper(substr($leader->name, 0, 1)) }}
+                            </div>
+                        @endif
+                    </div>
+                    <span class="text-xs font-bold text-slate-800 truncate flex-1">{{ $leader->name }}</span>
+                    <span class="text-xs font-extrabold text-indigo-600 shrink-0">⚡ {{ $leader->weekly_points }} XP</span>
+                </div>
+                @empty
+                <p class="text-xs text-slate-400">Belum ada aktivitas minggu ini.</p>
+                @endforelse
+            </div>
+        </div>
+
+        <a href="{{ route('student.leaderboard') }}"
+           class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 text-xs font-bold text-center transition-colors">
+            Lihat Leaderboard Lengkap →
+        </a>
+    </div>
+
+</div>
+
+<script>
+    function claimDashboardQuest(questKey, btn) {
+        btn.disabled = true;
+        btn.innerText = 'Mengambil...';
+
+        fetch("{{ route('student.quests.claim') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ quest_key: questKey })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                btn.className = 'text-xs font-bold text-slate-400 bg-slate-200/80 px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-not-allowed';
+                btn.innerText = '✓ Diklaim';
+                alert(data.message);
+                window.location.reload();
+            } else {
+                alert(data.message || 'Gagal klaim.');
+                btn.disabled = false;
+                btn.innerText = 'Klaim Lagi';
+            }
+        })
+        .catch(e => {
+            console.error(e);
+            btn.disabled = false;
+            btn.innerText = 'Klaim';
+        });
+    }
+</script>
 
 {{-- Continue Learning --}}
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Instructor;
 use App\Http\Controllers\Student;
@@ -29,6 +30,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'show'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
+
+    // Socialite OAuth Routes (Google & Facebook)
+    Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])->name('auth.social.redirect');
+    Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('auth.social.callback');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
@@ -56,6 +61,9 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student'])
     Route::post('/courses/{course}/enroll', [Student\CourseController::class, 'enroll'])->name('courses.enroll');
     Route::get('/lessons/{lesson}', [Student\LessonController::class, 'show'])->name('lessons.show')->middleware('enrolled');
     Route::post('/lessons/{lesson}/complete', [Student\LessonController::class, 'complete'])->name('lessons.complete')->middleware('enrolled');
+    Route::get('/leaderboard', [Student\LeaderboardController::class, 'index'])->name('leaderboard');
+    Route::post('/quests/claim', [Student\LeaderboardController::class, 'claimQuest'])->name('quests.claim');
+    Route::post('/lessons/{lesson}/focus-complete', [Student\FocusSessionController::class, 'complete'])->name('lessons.focus-complete');
 });
 
 // ==========================================

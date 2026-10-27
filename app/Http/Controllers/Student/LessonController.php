@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\LessonProgress;
 use App\Models\Enrollment;
+use App\Models\XpLog;
 use Illuminate\Support\Facades\DB;
 
 class LessonController extends Controller
@@ -51,49 +52,36 @@ class LessonController extends Controller
         }
 
         // Simpan progress dan berikan XP jika materi baru selesai
-$progress = LessonProgress::firstOrCreate([
-    'user_id'   => $user->id,
-    'lesson_id' => $lesson->id,
-], [
-    'completed_at' => now(),
-]);
+        $progress = LessonProgress::firstOrCreate([
+            'user_id'   => $user->id,
+            'lesson_id' => $lesson->id,
+        ], [
+            'completed_at' => now(),
+        ]);
 
-// Tambahkan 10 XP hanya jika progress baru berhasil dibuat
-if ($progress->wasRecentlyCreated) {
-    $user->increment('xp_points', 10);
+        // Tambahkan 10 XP hanya jika progress baru berhasil dibuat
+        if ($progress->wasRecentlyCreated) {
+            XpLog::award($user, 10, 'lesson_completed', 'Menyelesaikan materi: ' . $lesson->title);
 
-    // Badge untuk materi pertama yang diselesaikan
-    $completedCount = $user->lessonProgress()->count();
+            // Badge untuk materi pertama yang diselesaikan
+            $completedCount = $user->lessonProgress()->count();
 
-    if ($completedCount >= 1) {
-        DB::table('user_badges')->updateOrInsert(
-            [
-                'user_id' => $user->id,
-                'badge_key' => 'first_lesson',
-            ],
-            [
-                'earned_at' => now(),
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]
-        );
-    }
+            if ($completedCount >= 1) {
+                DB::table('user_badges')->updateOrInsert(
+                    ['user_id' => $user->id, 'badge_key' => 'first_lesson'],
+                    ['earned_at' => now(), 'updated_at' => now(), 'created_at' => now()]
+                );
+            }
 
-    // Badge untuk menyelesaikan 5 materi
-    if ($completedCount >= 5) {
-        DB::table('user_badges')->updateOrInsert(
-            [
-                'user_id' => $user->id,
-                'badge_key' => 'five_lessons',
-            ],
-            [
-                'earned_at' => now(),
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]
-        );
-    }
-}
+            // Badge untuk menyelesaikan 5 materi
+            if ($completedCount >= 5) {
+                DB::table('user_badges')->updateOrInsert(
+                    ['user_id' => $user->id, 'badge_key' => 'five_lessons'],
+                    ['earned_at' => now(), 'updated_at' => now(), 'created_at' => now()]
+                );
+            }
+        }
+
         // Cek apakah seluruh kursus sudah selesai
         $totalLessons = $course->lessons()->count();
         $completedLessons = LessonProgress::where('user_id', $user->id)
