@@ -5,24 +5,25 @@
 @section('content')
 
 {{-- HERO SECTION --}}
-<section class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white overflow-hidden">
+<section class="home-hero relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white overflow-hidden">
     <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0di00aC0ydjRoLTR2Mmg0djRoMnYtNGg0di0yaC00em0wLTMwVjBoLTJ2NGgtNHYyaDR2NGgyVjZoNFY0aC00ek02IDM0di00SDR2NEgwdjJoNHY0aDJ2LTRoNHYtMkg2ek02IDRWMEg0djRIMHYyaDR2NGgyVjZoNFY0SDZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-40"></div>
-    <div class="relative max-w-7xl mx-auto px-4 py-24 sm:py-32">
-        <div class="max-w-3xl">
+    <div class="relative max-w-7xl mx-auto px-4 py-20 sm:py-24 lg:py-28">
+        <div class="hero-layout">
+        <div class="hero-copy">
             <span class="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
                 <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
                 Platform Pembelajaran Online
             </span>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
                 Tingkatkan Skill,<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Raih Karir Impian</span>
+                <span class="home-hero-blue-title">Raih Karir Impian</span>
             </h1>
             <p class="text-slate-300 text-lg sm:text-xl leading-relaxed mb-10 max-w-2xl">
                 Belajar dari instruktur terpercaya dengan kurikulum yang terstruktur. Mulai dari nol, berkembang menjadi profesional.
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route('courses.index') }}"
-                   class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-7 py-3.5 rounded-xl transition-all hover:scale-105">
+                   class="hero-primary-cta inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-7 py-3.5 rounded-xl transition-all hover:scale-105">
                     Jelajahi Kursus
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -37,20 +38,40 @@
             </div>
 
             {{-- Stats --}}
-            <div class="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
-                <div>
-                    <p class="text-3xl font-bold text-white">{{ \App\Models\Course::where('status','published')->count() }}+</p>
-                    <p class="text-slate-400 text-sm">Kursus Tersedia</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold text-white">{{ \App\Models\User::where('role','student')->count() }}+</p>
-                    <p class="text-slate-400 text-sm">Pelajar Aktif</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold text-white">{{ \App\Models\User::where('role','instructor')->count() }}+</p>
-                    <p class="text-slate-400 text-sm">Instruktur</p>
-                </div>
+            <div class="hero-stats flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
+                <div><p class="text-3xl font-bold text-white">{{ \App\Models\Course::where('status','published')->count() }}+</p><p class="text-slate-400 text-sm">Kursus Tersedia</p></div>
+                <div><p class="text-3xl font-bold text-white">{{ \App\Models\User::where('role','student')->count() }}+</p><p class="text-slate-400 text-sm">Pelajar Aktif</p></div>
+                <div><p class="text-3xl font-bold text-white">{{ \App\Models\User::where('role','instructor')->count() }}+</p><p class="text-slate-400 text-sm">Instruktur</p></div>
             </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+            <div class="hero-code-window">
+                <div class="hero-code-topbar">
+                    <span class="hero-code-dot"></span><span class="hero-code-dot"></span><span class="hero-code-dot"></span>
+                    <span class="hero-code-file">learnspace.js</span>
+                    <span class="hero-code-live"><i></i> LIVE PREVIEW</span>
+                </div>
+                <div class="hero-code-body">
+                    <div class="hero-code-line"><span class="hero-code-number">01</span><span><span class="hero-code-keyword">const</span> <span class="hero-code-name">future</span> = {</span></div>
+                    <div class="hero-code-line hero-code-indent"><span class="hero-code-number">02</span><span>skill: <span class="hero-code-string">'developer'</span>,</span></div>
+                    <div class="hero-code-line hero-code-indent"><span class="hero-code-number">03</span><span>curiosity: <span class="hero-code-string">'always'</span>,</span></div>
+                    <div class="hero-code-line hero-code-indent"><span class="hero-code-number">04</span><span>progress: <span class="hero-code-keyword">true</span>,</span></div>
+                    <div class="hero-code-line"><span class="hero-code-number">05</span><span>};</span></div>
+                    <div class="hero-code-line"><span class="hero-code-number">06</span><span class="hero-code-muted">// learn something new today</span></div>
+                    <div class="hero-code-line"><span class="hero-code-number">07</span><span><span class="hero-code-keyword">start</span>(future);<span class="hero-code-cursor"></span></span></div>
+                </div>
+                <div class="hero-code-footer"><span><i></i> Semua sistem siap</span><span>HTML&nbsp; • &nbsp;CSS&nbsp; • &nbsp;JS</span></div>
+            </div>
+            <div class="hero-float-card hero-float-top">
+                <span class="hero-float-icon">✦</span><span>Belajar terarah<small>Langkah kecil, skill besar</small></span>
+            </div>
+            <div class="hero-float-card hero-float-bottom">
+                <span class="hero-float-icon">↗</span><span>Progress belajarmu<small>Terus berkembang setiap hari</small><span class="hero-progress"><span></span></span></span>
+            </div>
+            <div class="hero-code-orbit hero-code-orbit-one"></div><div class="hero-code-orbit hero-code-orbit-two"></div>
+            <span class="hero-code-spark hero-code-spark-one">✦</span><span class="hero-code-spark hero-code-spark-two">✧</span>
+        </div>
         </div>
     </div>
 </section>
@@ -146,7 +167,7 @@
 
 {{-- CTA SECTION --}}
 @guest
-<section class="bg-gradient-to-r from-indigo-600 to-violet-700 text-white py-16">
+<section class="ls-home-cta text-white py-16 sm:py-20">
     <div class="max-w-3xl mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-4">Siap Mulai Belajar?</h2>
         <p class="text-indigo-100 text-lg mb-8">Bergabung dengan ribuan pelajar yang sudah meningkatkan skill mereka bersama LearnSpace.</p>

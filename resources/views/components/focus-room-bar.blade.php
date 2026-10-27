@@ -21,7 +21,7 @@
                 </span>
             </div>
             <h3 class="text-base font-extrabold text-white flex items-center gap-2">
-                <span>🎧</span> Focus Mode & Pomodoro
+                <span>🧠</span> Focus Mode & Pomodoro
             </h3>
             <p class="text-xs text-slate-400">Tingkatkan retensi belajar dengan timer 25 menit dan ambient audio penenang.</p>
         </div>
@@ -31,7 +31,7 @@
             {{-- Mode Switcher Tabs --}}
             <div class="flex items-center bg-white/10 p-1 rounded-xl text-xs font-semibold gap-1">
                 <button type="button" onclick="setPomodoroMode('focus', 25)" id="pomo-mode-focus" class="px-3 py-1 rounded-lg bg-indigo-600 text-white transition-all">
-                    🍅 Fokus (25m)
+                    🧠 Fokus (25m)
                 </button>
                 <button type="button" onclick="setPomodoroMode('shortBreak', 5)" id="pomo-mode-short" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition-all">
                     ☕ Rehat (5m)

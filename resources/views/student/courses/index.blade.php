@@ -32,8 +32,39 @@
 @endsection
 
 @section('content')
+<div class="student-courses-hero relative overflow-hidden rounded-[28px] mb-7 p-6 sm:p-8 text-white">
+    <div class="student-courses-hero-content relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-7">
+        <div class="max-w-2xl">
+            <p class="student-courses-eyebrow inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] mb-3">
+                <span class="student-courses-eyebrow-dot"></span> Your learning space
+            </p>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight">Satu langkah kecil hari ini, skill yang lebih besar esok hari.</h2>
+            <p class="text-sm sm:text-base mt-3 max-w-xl leading-relaxed">Lanjutkan materi yang sedang kamu pelajari, rayakan progresmu, dan bangun kebiasaan belajar yang konsisten.</p>
+            <div class="student-courses-hero-meta flex flex-wrap items-center gap-2.5 mt-5">
+                <span class="student-courses-meta-pill"><span aria-hidden="true">📚</span> {{ $enrollments->total() }} kursus diikuti</span>
+                <span class="student-courses-meta-pill"><span aria-hidden="true">⚡</span> {{ auth()->user()->xp_points ?? 0 }} XP terkumpul</span>
+            </div>
+        </div>
+        <div class="student-courses-hero-art shrink-0 self-center md:self-auto" aria-hidden="true">
+            <div class="student-courses-art-orbit student-courses-art-orbit-one"></div>
+            <div class="student-courses-art-orbit student-courses-art-orbit-two"></div>
+            <div class="student-courses-art-tile student-courses-art-tile-main">
+                <span class="student-courses-art-spark">✦</span>
+                <span class="student-courses-art-icon">🚀</span>
+                <span class="student-courses-art-label">KEEP GROWING</span>
+                <span class="student-courses-art-caption">Learn · Practice · Build</span>
+            </div>
+            <span class="student-courses-art-float student-courses-art-float-top">✧</span>
+            <span class="student-courses-art-float student-courses-art-float-side">↗</span>
+        </div>
+    </div>
+    <a href="{{ route('courses.index') }}" class="student-courses-hero-link relative z-10 inline-flex items-center gap-2 mt-5 rounded-xl px-4 py-2.5 text-sm font-bold">
+        Jelajahi kelas berikutnya <span aria-hidden="true">→</span>
+    </a>
+</div>
+
 @if($enrollments->isNotEmpty())
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+    <div class="student-course-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         @foreach($enrollments as $enrollment)
         @php
             $course = $enrollment->course;
@@ -42,9 +73,9 @@
             $doneCount = $lessonCount > 0 ? (int)round($progress * $lessonCount / 100) : 0;
         @endphp
         <a href="{{ route('student.courses.show', $course->slug) }}"
-           class="stat-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-indigo-200 group block">
+           class="student-course-card stat-card bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-indigo-200 group block">
             {{-- Thumbnail --}}
-            <div class="aspect-video bg-gradient-to-br from-indigo-500 to-violet-600 relative overflow-hidden">
+            <div class="student-course-cover aspect-video bg-gradient-to-br from-indigo-500 to-violet-600 relative overflow-hidden">
                 @if($course->thumbnail)
                     <img src="{{ asset('storage/' . $course->thumbnail) }}"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="">
@@ -55,8 +86,12 @@
                         </svg>
                     </div>
                 @endif
+                <div class="student-course-cover-overlay" aria-hidden="true">
+                    <span class="student-course-cover-chip">LEARNING PATH</span>
+                    <span class="student-course-cover-arrow">↗</span>
+                </div>
                 @if($enrollment->completed_at)
-                    <div class="absolute inset-0 bg-emerald-900/50 flex items-center justify-center">
+                    <div class="absolute inset-0 z-10 bg-emerald-900/50 flex items-center justify-center">
                         <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                             Selesai
@@ -65,15 +100,15 @@
                 @endif
             </div>
             {{-- Info --}}
-            <div class="p-5">
+            <div class="student-course-card-body p-5">
                 <p class="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-1">{{ $course->category->name }}</p>
                 <h3 class="font-bold text-slate-800 mb-3 line-clamp-2 text-sm group-hover:text-indigo-700 transition-colors leading-snug">{{ $course->title }}</h3>
                 {{-- Progress bar --}}
-                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-2">
-                    <div class="h-full rounded-full {{ $progress >= 100 ? 'bg-emerald-500' : 'bg-gradient-to-r from-indigo-500 to-violet-500' }} transition-all duration-500"
+                <div class="student-course-progress-track w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-2">
+                    <div class="student-course-progress-fill h-full rounded-full {{ $progress >= 100 ? 'bg-emerald-500' : 'bg-gradient-to-r from-indigo-500 to-violet-500' }} transition-all duration-500"
                          style="width: {{ $progress }}%"></div>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="student-course-card-footer flex items-center justify-between">
                     <span class="text-xs text-slate-500">{{ $doneCount }}/{{ $lessonCount }} materi · {{ $progress }}%</span>
                     <span class="text-xs font-bold {{ $progress >= 100 ? 'text-emerald-600' : 'text-indigo-600' }}">
                         {{ $progress >= 100 ? 'Ulangi ↗' : ($progress > 0 ? 'Lanjutkan →' : 'Mulai →') }}
@@ -89,7 +124,7 @@
     @endif
 
 @else
-    <div class="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
+    <div class="student-course-empty text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
         <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>

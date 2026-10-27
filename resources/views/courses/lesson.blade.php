@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/31QIitRLBnoOH68GmpKKZTrIE2bfHBqltPNjUrPmDAODVMmAKWiG9XM16enNoMa3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .prose pre {
-        background-color: #1e1e2e !important;
+        background-color: #111d32 !important;
         border-radius: 0.85rem;
         padding: 1.15rem;
         position: relative;
@@ -18,6 +18,47 @@
     .prose code {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.88rem;
+    }
+    /* Higher-contrast code samples: keep comments and tokens readable for beginners. */
+    .prose pre,
+    .prose pre code,
+    .prose pre code[class*="language-"] {
+        color: #f4f8ff !important;
+        text-shadow: none !important;
+        font-size: 0.92rem;
+        line-height: 1.8;
+        tab-size: 4;
+    }
+    .prose pre .token.comment,
+    .prose pre .token.prolog,
+    .prose pre .token.doctype,
+    .prose pre .token.cdata {
+        color: #b8c8e2 !important;
+        font-style: italic;
+    }
+    .prose pre .token.keyword,
+    .prose pre .token.selector,
+    .prose pre .token.important,
+    .prose pre .token.atrule {
+        color: #ffbd91 !important;
+    }
+    .prose pre .token.string,
+    .prose pre .token.attr-value,
+    .prose pre .token.inserted {
+        color: #a7f3c4 !important;
+    }
+    .prose pre .token.function,
+    .prose pre .token.class-name {
+        color: #9ac8ff !important;
+    }
+    .prose pre .token.number,
+    .prose pre .token.boolean,
+    .prose pre .token.constant {
+        color: #ffdc8a !important;
+    }
+    .prose pre .token.operator,
+    .prose pre .token.punctuation {
+        color: #e2eaf8 !important;
     }
     .prose :not(pre) > code {
         background-color: #eef2ff;
@@ -342,7 +383,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.prose pre').forEach(function(pre) {
             var btn = document.createElement('button');
-            btn.className = 'absolute top-3 right-3 text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white px-2.5 py-1 rounded-md transition-all border border-white/10 flex items-center gap-1';
+            btn.className = 'absolute top-3 right-3 text-[11px] font-semibold bg-slate-700/90 hover:bg-slate-600 text-white hover:text-white px-2.5 py-1 rounded-md transition-all border border-white/10 flex items-center gap-1';
             btn.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin';
             btn.onclick = function() {
                 var code = pre.querySelector('code');

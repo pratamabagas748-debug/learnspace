@@ -30,7 +30,31 @@
 @endsection
 
 @section('content')
-<div class="max-w-6xl space-y-8">
+<div class="max-w-6xl space-y-8 leaderboard-page">
+
+    {{-- Gamified leaderboard hero: decorative presentation only. --}}
+    <section class="leaderboard-hero relative overflow-hidden rounded-[28px] p-6 sm:p-8 text-white">
+        <div class="leaderboard-hero-copy relative z-10 max-w-2xl">
+            <p class="leaderboard-hero-eyebrow inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] mb-3"><span class="leaderboard-live-dot"></span> Learn · Compete · Level up</p>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">Setiap usaha punya poin. Setiap progres layak dirayakan.</h2>
+            <p class="text-sm sm:text-base mt-3 leading-relaxed max-w-xl">Selesaikan misi, kumpulkan XP, dan terus naik level bersama komunitas LearnSpace.</p>
+            <div class="leaderboard-hero-pills flex flex-wrap gap-2.5 mt-5">
+                <span class="leaderboard-hero-pill"><span aria-hidden="true">⚡</span> {{ auth()->user()->xp_points ?? 0 }} XP total</span>
+                <span class="leaderboard-hero-pill"><span aria-hidden="true">🔥</span> {{ $streak }} hari streak</span>
+                <span class="leaderboard-hero-pill"><span aria-hidden="true">{{ $league['badge'] }}</span> Liga {{ $league['name'] }}</span>
+            </div>
+            <a href="{{ route('student.courses.index') }}" class="leaderboard-hero-cta inline-flex items-center gap-2 mt-5 rounded-xl px-4 py-2.5 text-sm font-bold">Lanjutkan belajar <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="leaderboard-hero-art" aria-hidden="true">
+            <div class="leaderboard-art-ring leaderboard-art-ring-one"></div>
+            <div class="leaderboard-art-ring leaderboard-art-ring-two"></div>
+            <div class="leaderboard-art-trophy"><span>🏆</span><i>✦</i></div>
+            <div class="leaderboard-art-float leaderboard-art-float-top">+ XP</div>
+            <div class="leaderboard-art-float leaderboard-art-float-bottom">LEVEL UP <b>↗</b></div>
+            <span class="leaderboard-art-spark leaderboard-art-spark-one">✦</span>
+            <span class="leaderboard-art-spark leaderboard-art-spark-two">✧</span>
+        </div>
+    </section>
 
     {{-- Alert Notification Banner --}}
     <div id="quest-alert" class="hidden rounded-2xl p-4 shadow-sm border transition-all animate-bounce">
@@ -45,10 +69,10 @@
     </div>
 
     {{-- Top League & Stats Cards --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="leaderboard-stat-grid grid grid-cols-1 md:grid-cols-3 gap-5">
 
         {{-- League Tier Banner --}}
-        <div class="bg-gradient-to-br {{ $league['color'] }} rounded-2xl p-6 text-white shadow-lg shadow-indigo-100 flex flex-col justify-between relative overflow-hidden">
+        <div class="leaderboard-stat-card league-current-card bg-gradient-to-br {{ $league['color'] }} rounded-2xl p-6 text-white shadow-lg shadow-indigo-100 flex flex-col justify-between relative overflow-hidden">
             <div class="absolute -right-4 -bottom-4 text-7xl opacity-20 pointer-events-none">{{ $league['badge'] }}</div>
             <div>
                 <span class="text-xs uppercase tracking-wider font-extrabold bg-white/20 backdrop-blur-xs px-2.5 py-1 rounded-full inline-block mb-3">
@@ -73,7 +97,7 @@
         </div>
 
         {{-- Peringkat Kamu --}}
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <div class="leaderboard-stat-card student-rank-card bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
             <div>
                 <span class="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">Peringkat Mingguanmu</span>
                 <div class="flex items-baseline gap-2 mt-2">
@@ -88,7 +112,7 @@
         </div>
 
         {{-- Streak & Konsistensi --}}
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+        <div class="leaderboard-stat-card student-streak-rank-card bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
             <div>
                 <span class="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">Learning Streak</span>
                 <div class="flex items-center gap-2 mt-2">
@@ -108,7 +132,7 @@
     </div>
 
     {{-- Daily Quests (Misi Harian) Section --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+    <div class="quest-board-panel bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
             <div>
                 <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -123,10 +147,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             @foreach($quests as $key => $quest)
-            <div class="border rounded-2xl p-4.5 transition-all {{ $quest['claimed'] ? 'bg-slate-50/70 border-slate-200 opacity-75' : ($quest['completed'] ? 'bg-emerald-50/50 border-emerald-200 shadow-xs' : 'bg-white border-slate-200') }}">
+            <div class="quest-card border rounded-2xl p-4.5 transition-all {{ $quest['claimed'] ? 'bg-slate-50/70 border-slate-200 opacity-75' : ($quest['completed'] ? 'bg-emerald-50/50 border-emerald-200 shadow-xs' : 'bg-white border-slate-200') }}">
                 <div class="flex items-start justify-between gap-2 mb-2">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xl shrink-0">
-                        {{ $quest['icon'] }}
+                    <div class="quest-icon-tile w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xl shrink-0">
+                        {{ $key === 'daily_focus' ? '🧠' : $quest['icon'] }}
                     </div>
                     <span class="text-xs font-bold px-2 py-0.5 rounded-md {{ $quest['claimed'] ? 'bg-slate-200 text-slate-600' : 'bg-amber-100 text-amber-800' }}">
                         +{{ $quest['reward_xp'] }} XP
@@ -143,7 +167,7 @@
                         <span>{{ $quest['current'] }}/{{ $quest['target'] }}</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                        <div class="h-full rounded-full transition-all duration-500 {{ $quest['completed'] ? 'bg-emerald-500' : 'bg-indigo-600' }}"
+                        <div class="quest-progress-fill h-full rounded-full transition-all duration-500 {{ $quest['completed'] ? 'bg-emerald-500' : 'bg-indigo-600' }}"
                              style="width: {{ ($quest['current'] / $quest['target']) * 100 }}%"></div>
                     </div>
                 </div>
@@ -171,14 +195,14 @@
     </div>
 
     {{-- Leaderboard Tables with Tabs --}}
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div class="leaderboard-table-panel bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         {{-- Tabs Header --}}
-        <div class="border-b border-slate-100 p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="leaderboard-table-header border-b border-slate-100 p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h3 class="text-lg font-extrabold text-slate-900">Papan Peringkat Siswa</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Top 3 teratas berpeluang promosi ke liga berikutnya setiap minggu!</p>
             </div>
-            <div class="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold">
+            <div class="ranking-tabs flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold">
                 <button id="tab-weekly-btn" onclick="switchLeaderboardTab('weekly')" class="px-4 py-2 rounded-lg bg-white shadow-xs text-indigo-600 transition-all">
                     🏆 Liga Minggu Ini
                 </button>
@@ -195,7 +219,7 @@
                     $isCurrentUser = $u->id === auth()->id();
                     $rank = $index + 1;
                 @endphp
-                <div class="p-4 sm:px-6 flex items-center gap-4 transition-colors {{ $isCurrentUser ? 'bg-indigo-50/80 border-l-4 border-indigo-600' : 'hover:bg-slate-50' }}">
+                <div class="leaderboard-row leaderboard-row-weekly p-4 sm:px-6 flex items-center gap-4 transition-colors {{ $isCurrentUser ? 'bg-indigo-50/80 border-l-4 border-indigo-600' : 'hover:bg-slate-50' }}">
                     {{-- Rank Badge --}}
                     <div class="w-8 flex items-center justify-center shrink-0">
                         @if($rank === 1)
@@ -257,7 +281,7 @@
                     $isCurrentUser = $u->id === auth()->id();
                     $rank = $index + 1;
                 @endphp
-                <div class="p-4 sm:px-6 flex items-center gap-4 transition-colors {{ $isCurrentUser ? 'bg-indigo-50/80 border-l-4 border-indigo-600' : 'hover:bg-slate-50' }}">
+                <div class="leaderboard-row leaderboard-row-alltime p-4 sm:px-6 flex items-center gap-4 transition-colors {{ $isCurrentUser ? 'bg-indigo-50/80 border-l-4 border-indigo-600' : 'hover:bg-slate-50' }}">
                     <div class="w-8 flex items-center justify-center shrink-0">
                         @if($rank === 1)
                             <span class="text-2xl">🥇</span>

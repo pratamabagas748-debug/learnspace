@@ -1,52 +1,73 @@
-<footer class="bg-slate-900 text-slate-400 mt-20 relative overflow-hidden">
-    {{-- Background decoration --}}
-    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-40"></div>
+<footer class="site-footer mt-20 relative overflow-hidden">
+    <div class="footer-ambient footer-ambient-one" aria-hidden="true"></div>
+    <div class="footer-ambient footer-ambient-two" aria-hidden="true"></div>
+    <div class="footer-top-line" aria-hidden="true"></div>
 
-    <div class="max-w-7xl mx-auto px-4 py-14 relative">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 relative z-10">
+        {{-- Closing CTA --}}
+        <div class="footer-cta-panel mb-12 sm:mb-14">
+            <div class="footer-cta-copy">
+                <span class="footer-eyebrow"><span></span> WAKTUNYA BERTUMBUH</span>
+                <h2>Skill hebat dimulai dari <span>satu langkah kecil.</span></h2>
+                <p>Pilih materi yang sesuai dengan tujuanmu dan mulai bangun masa depanmu bersama LearnSpace.</p>
+            </div>
+            <a href="{{ route('courses.index') }}" class="footer-cta-button">
+                Jelajahi Kursus
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <div class="footer-cta-decoration" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="footer-main-grid">
             {{-- Brand --}}
-            <div class="md:col-span-2">
-                <div class="flex items-center gap-2.5 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                        </svg>
-                    </div>
-                    <span class="text-white font-extrabold text-lg">Learn<span class="text-indigo-400">Space</span></span>
-                </div>
-                <p class="text-sm leading-relaxed max-w-md">Platform Learning Management System (LMS) untuk membantu Anda mengembangkan keterampilan profesional dengan kurikulum terstruktur.</p>
+            <div class="footer-brand-block">
+                <a href="{{ route('home') }}" class="footer-brand" aria-label="LearnSpace — Home">
+                    <span class="footer-brand-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 6v15M8 7h8M8 11h7"/></svg>
+                    </span>
+                    <span>Learn<span>Space</span></span>
+                </a>
+                <p class="footer-brand-description">Platform pembelajaran online untuk membangun keterampilan digital lewat materi terstruktur, latihan, dan progres yang terasa.</p>
+                <div class="footer-brand-tag"><span>✦</span> Belajar hari ini, tumbuh setiap hari</div>
             </div>
 
-            {{-- Quick Links --}}
-            <div>
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Navigasi</h4>
-                <ul class="space-y-2.5 text-sm">
-                    <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a></li>
-                    <li><a href="{{ route('courses.index') }}" class="hover:text-white transition-colors">Semua Kursus</a></li>
-                    @guest
-                    <li><a href="{{ route('login') }}" class="hover:text-white transition-colors">Masuk</a></li>
-                    <li><a href="{{ route('register') }}" class="hover:text-white transition-colors">Daftar</a></li>
-                    @else
-                    <li><a href="{{ route(auth()->user()->role . '.dashboard') }}" class="hover:text-white transition-colors">Dashboard</a></li>
-                    <li><a href="{{ route('profile.edit') }}" class="hover:text-white transition-colors">Profil Saya</a></li>
-                    @endguest
+            {{-- Navigation --}}
+            <div class="footer-column">
+                <h4>Navigasi</h4>
+                <ul>
+                    <li><a href="{{ route('home') }}">Home <span>↗</span></a></li>
+                    <li><a href="{{ route('courses.index') }}">Semua Kursus <span>↗</span></a></li>
                 </ul>
             </div>
 
-            {{-- Kategori Dinamis --}}
-            <div>
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Kategori</h4>
-                <ul class="space-y-2.5 text-sm">
+            {{-- Dynamic categories --}}
+            <div class="footer-column">
+                <h4>Jelajahi Kategori</h4>
+                <ul>
                     @foreach(\App\Models\Category::take(5)->get() as $cat)
-                    <li><a href="{{ route('courses.index', ['category' => $cat->slug]) }}" class="hover:text-white transition-colors">{{ $cat->name }}</a></li>
+                    <li><a href="{{ route('courses.index', ['category' => $cat->slug]) }}">{{ $cat->name }} <span>↗</span></a></li>
                     @endforeach
+                </ul>
+            </div>
+
+            {{-- Account links --}}
+            <div class="footer-column">
+                <h4>Akun Saya</h4>
+                <ul>
+                    @guest
+                    <li><a href="{{ route('login') }}">Masuk <span>↗</span></a></li>
+                    <li><a href="{{ route('register') }}">Daftar Akun <span>↗</span></a></li>
+                    @else
+                    <li><a href="{{ route(auth()->user()->role . '.dashboard') }}">Dashboard <span>↗</span></a></li>
+                    <li><a href="{{ route('profile.edit') }}">Profil Saya <span>↗</span></a></li>
+                    @endguest
                 </ul>
             </div>
         </div>
 
-        <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+        <div class="footer-bottom">
             <p>&copy; {{ date('Y') }} LearnSpace. Dibuat untuk keperluan Tugas Akhir.</p>
-            <p class="text-slate-600">Laravel {{ app()->version() }} · PHP {{ phpversion() }}</p>
+            <div class="footer-bottom-meta"><span>Dirancang untuk terus bertumbuh</span><span class="footer-meta-separator">·</span><span>Laravel {{ app()->version() }} · PHP {{ phpversion() }}</span></div>
         </div>
     </div>
 </footer>

@@ -402,7 +402,7 @@ el.style.color = "#34d399";';
 @endphp
 
 {{-- Interactive Playground Container --}}
-<div x-data="learnSpacePlayground()" class="mt-8 mb-6 border border-slate-800 bg-[#0d1117] rounded-3xl overflow-hidden shadow-2xl">
+<div x-data="learnSpacePlayground()" class="learnspace-code-playground mt-8 mb-6 border border-slate-800 bg-[#0d1117] rounded-3xl overflow-hidden shadow-2xl">
     
     {{-- Header Bar --}}
     <div class="px-5 py-3.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">

@@ -10,7 +10,7 @@ $levelColor = match($course->level) {
 @endphp
 
 <a href="{{ route('courses.show', $course->slug) }}"
-   class="bg-white rounded-3xl border border-slate-200/80 hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer transform hover:-translate-y-1">
+   class="course-card bg-white rounded-3xl border border-slate-200/80 hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer transform hover:-translate-y-1">
 
     {{-- Thumbnail Image Container --}}
     <div class="aspect-video bg-slate-900 relative overflow-hidden">
@@ -53,7 +53,7 @@ $levelColor = match($course->level) {
             @if($course->instructor->avatar_url)
                 <img src="{{ $course->instructor->avatar_url }}" class="w-6 h-6 rounded-full object-cover ring-2 ring-indigo-100" alt="{{ $course->instructor->name }}">
             @else
-                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-[10px] font-bold text-white">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-[10px] font-bold text-white">
                     {{ strtoupper(substr($course->instructor->name ?? '?', 0, 1)) }}
                 </div>
             @endif
@@ -76,7 +76,7 @@ $levelColor = match($course->level) {
                 {{ $course->formatted_duration }}
             </span>
             <span class="flex items-center gap-1.5 ml-auto text-slate-500 font-semibold">
-                <svg class="w-3.5 h-3.5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
                 {{ $course->enrollments_count ?? $course->enrollments->count() }} siswa

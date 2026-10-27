@@ -27,7 +27,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 antialiased text-slate-900">
+<body class="bg-slate-50 antialiased text-slate-900 learnspace-theme dashboard-theme">
 
 {{-- Mobile Overlay --}}
 <div id="mobile-overlay" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden" onclick="toggleSidebar()"></div>
@@ -35,7 +35,7 @@
 <div class="flex h-screen overflow-hidden">
 
     {{-- ==================== SIDEBAR ==================== --}}
-    <aside id="sidebar" class="fixed lg:relative z-40 w-64 h-full bg-white border-r border-slate-100 flex flex-col shadow-sm mobile-hidden lg:translate-x-0">
+    <aside id="sidebar" class="dashboard-sidebar fixed lg:relative z-40 w-64 h-full bg-white border-r border-slate-100 flex flex-col shadow-sm mobile-hidden lg:translate-x-0">
 
         {{-- Logo --}}
         <div class="h-16 flex items-center justify-between px-5 border-b border-slate-100 shrink-0">
@@ -120,9 +120,15 @@
             <div class="flex items-center gap-3">
                 @yield('topbar-actions')
 
-                {{-- Avatar --}}
-                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 select-none">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                {{-- User identity + avatar --}}
+                <div class="dashboard-user-identity" title="{{ auth()->user()->name }}">
+                    <div class="dashboard-user-copy">
+                        <p class="dashboard-user-name">{{ auth()->user()->name }}</p>
+                        <p class="dashboard-user-role">{{ ucfirst(auth()->user()->role) }} LearnSpace</p>
+                    </div>
+                    <div class="dashboard-user-avatar w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 select-none">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </div>
                 </div>
             </div>
         </header>

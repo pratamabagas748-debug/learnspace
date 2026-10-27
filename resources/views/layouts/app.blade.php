@@ -21,7 +21,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased learnspace-theme">
 
     {{-- NAVBAR --}}
     @include('components.navbar')

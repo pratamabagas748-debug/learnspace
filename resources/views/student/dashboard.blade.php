@@ -5,8 +5,8 @@
 
 @section('topbar-actions')
 <a href="{{ route('courses.index') }}"
-   class="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all hover:shadow-md hover:shadow-indigo-200">
-    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+   class="dashboard-explore-link hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
     Jelajahi Kursus
 </a>
 @endsection
@@ -41,10 +41,10 @@
 @section('content')
 
 {{-- Welcome + Quick Stats --}}
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+<div class="student-welcome-grid grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
 
     {{-- Welcome Card --}}
-    <div class="lg:col-span-2 bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-700 rounded-2xl p-6 text-white relative overflow-hidden">
+    <div class="student-welcome-banner lg:col-span-2 bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-700 rounded-2xl p-6 text-white relative overflow-hidden">
         <div class="absolute -top-6 -right-6 w-36 h-36 bg-white/5 rounded-full"></div>
         <div class="absolute bottom-0 right-12 w-24 h-24 bg-white/5 rounded-full"></div>
         <div class="relative">
@@ -58,11 +58,35 @@
                     Mulai kursus baru hari ini.
                 @endif
             </p>
+            <a href="{{ route('courses.index') }}" class="student-welcome-cta">
+                Temukan kelas berikutnya <span aria-hidden="true">→</span>
+            </a>
+        </div>
+        {{-- Decorative learning journey: visual only, no new app logic. --}}
+        <div class="student-welcome-art" aria-hidden="true">
+            <div class="student-welcome-art-orbit"></div>
+            <div class="student-welcome-art-card">
+                <div class="student-welcome-art-top">
+                    <span class="student-welcome-art-mark">LS</span>
+                    <span class="student-welcome-art-label">YOUR JOURNEY</span>
+                    <span class="student-welcome-art-spark">✦</span>
+                </div>
+                <div class="student-welcome-art-title">Keep growing.</div>
+                <p class="student-welcome-art-copy">Every lesson moves you forward.</p>
+                <div class="student-welcome-art-steps">
+                    <span class="is-first"><i>01</i> Learn</span>
+                    <span class="is-second"><i>02</i> Practice</span>
+                    <span class="is-third"><i>03</i> Build</span>
+                </div>
+                <div class="student-welcome-art-lines"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <span class="student-welcome-art-float student-welcome-art-float-top"><b>✦</b> SKILL UP</span>
+            <span class="student-welcome-art-float student-welcome-art-float-bottom"><b>↗</b> KEEP GOING</span>
         </div>
     </div>
 
     {{-- Completion Stats --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+    <div class="student-progress-overview bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
         <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-4">Progress Belajar</p>
         <div class="space-y-3">
             @foreach([
@@ -81,10 +105,10 @@
 </div>
 
 {{-- Gamifikasi: XP, Badge, dan Learning Streak --}}
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<div class="student-gamification-grid grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
     {{-- XP Points --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="student-metric-card student-xp-card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex items-center gap-3">
             <div class="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center text-xl">
                 ⭐
@@ -100,7 +124,7 @@
     </div>
 
     {{-- Badge --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="student-metric-card student-badge-card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex items-center gap-3">
             <div class="w-11 h-11 bg-indigo-100 rounded-xl flex items-center justify-center text-xl">
                 🏅
@@ -116,7 +140,7 @@
     </div>
 
     {{-- Learning Streak --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+    <div class="student-metric-card student-streak-card bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
         <div class="flex items-center gap-3">
             <div class="w-11 h-11 bg-orange-100 rounded-xl flex items-center justify-center text-xl">
                 🔥
@@ -134,10 +158,10 @@
 </div>
 
 {{-- Daily Quests & Weekly League Section --}}
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
+<div class="student-mission-grid grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
 
     {{-- Daily Quests --}}
-    <div class="lg:col-span-2 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+    <div class="student-quests-panel lg:col-span-2 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h3 class="font-extrabold text-slate-900 flex items-center gap-2">
@@ -152,9 +176,9 @@
 
         <div class="space-y-3">
             @foreach($quests as $key => $q)
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border {{ $q['claimed'] ? 'bg-slate-50 border-slate-200 opacity-70' : ($q['completed'] ? 'bg-emerald-50/60 border-emerald-200' : 'bg-slate-50/50 border-slate-100') }}">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between student-quest-item gap-3 p-3.5 rounded-xl border {{ $q['claimed'] ? 'bg-slate-50 border-slate-200 opacity-70' : ($q['completed'] ? 'bg-emerald-50/60 border-emerald-200' : 'bg-slate-50/50 border-slate-100') }}">
                 <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-2xl shrink-0">{{ $q['icon'] }}</span>
+                    <span class="text-2xl shrink-0">{{ $key === 'daily_focus' ? '🧠' : $q['icon'] }}</span>
                     <div class="min-w-0">
                         <div class="flex items-center gap-2">
                             <p class="text-xs font-bold text-slate-800 truncate">{{ $q['title'] }}</p>
@@ -189,7 +213,7 @@
     </div>
 
     {{-- League Tier & Top 3 Mini Leaderboard --}}
-    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+    <div class="student-league-panel bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
         <div>
             <div class="flex items-center justify-between mb-3">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Liga Mingguan</span>
@@ -282,7 +306,7 @@
             $progress = $course->getProgressForUser(auth()->user());
         @endphp
         <a href="{{ route('student.courses.show', $course->slug) }}"
-           class="stat-card bg-white border border-slate-100 rounded-2xl p-5 block shadow-sm hover:shadow-md hover:border-indigo-200 group cursor-pointer">
+           class="student-learning-card stat-card bg-white border border-slate-100 rounded-2xl p-5 block shadow-sm hover:shadow-md hover:border-indigo-200 group cursor-pointer">
             <div class="flex items-start gap-3 mb-4">
                 <div class="w-11 h-11 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl shrink-0 flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,7 +346,7 @@
     </div>
 
     @if($enrollments->isNotEmpty())
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+        <div class="student-enrollment-table bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
             <table class="w-full text-sm">
                 <thead class="bg-slate-50 border-b border-slate-100">
                     <tr>
@@ -380,4 +404,57 @@
         </div>
     @endif
 </div>
+
+
+{{-- Course discovery spotlight: an additional visual shortcut to the existing course catalog. --}}
+@if($enrollments->isNotEmpty())
+<section class="student-explore-spotlight mb-8" aria-labelledby="student-explore-title">
+    <div class="student-explore-decoration student-explore-decoration-one" aria-hidden="true"></div>
+    <div class="student-explore-decoration student-explore-decoration-two" aria-hidden="true"></div>
+    <div class="student-explore-content">
+        <div class="student-explore-copy">
+            <p class="student-explore-eyebrow">
+                <span class="student-explore-eyebrow-icon" aria-hidden="true">✦</span>
+                NEXT STEP, BIGGER SKILLS
+            </p>
+            <h2 id="student-explore-title">Siap membuka bab belajar berikutnya?</h2>
+            <p class="student-explore-description">Temukan materi baru yang membuatmu penasaran, perluas skill, dan terus bangun progresmu satu langkah setiap hari.</p>
+            <div class="student-explore-perks" aria-label="Manfaat belajar">
+                <span><b aria-hidden="true">✓</b> Belajar bertahap</span>
+                <span><b aria-hidden="true">⚡</b> Kumpulkan XP</span>
+                <span><b aria-hidden="true">↗</b> Kembangkan skill</span>
+            </div>
+            <div class="student-explore-actions">
+                <a href="{{ route('courses.index') }}" class="student-explore-primary">
+                    Jelajahi Semua Kursus
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14m-6-6 6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="{{ route('student.courses.index') }}" class="student-explore-secondary">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM4 5.5v16M8 7h8M8 11h7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Lihat Kursus Saya
+                </a>
+            </div>
+        </div>
+        <div class="student-explore-art" aria-hidden="true">
+            <div class="student-explore-art-orbit student-explore-art-orbit-one"></div>
+            <div class="student-explore-art-orbit student-explore-art-orbit-two"></div>
+            <div class="student-explore-art-card">
+                <div class="student-explore-art-card-top">
+                    <span class="student-explore-art-code">&lt;/&gt;</span>
+                    <span class="student-explore-art-label">LEARNING PATH</span>
+                    <span class="student-explore-art-star">✦</span>
+                </div>
+                <p class="student-explore-art-title">Your next chapter</p>
+                <p class="student-explore-art-subtitle">Learn · Practice · Build</p>
+                <div class="student-explore-art-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="student-explore-art-steps"><span>01 EXPLORE</span><span>02 LEARN</span><span>03 BUILD</span></div>
+            </div>
+            <span class="student-explore-art-float student-explore-art-float-one"><b>⚡</b> KEEP GROWING</span>
+            <span class="student-explore-art-float student-explore-art-float-two"><b>↗</b> NEW SKILLS</span>
+            <span class="student-explore-art-spark student-explore-art-spark-one">✦</span>
+            <span class="student-explore-art-spark student-explore-art-spark-two">✧</span>
+        </div>
+    </div>
+</section>
+@endif
 @endsection
