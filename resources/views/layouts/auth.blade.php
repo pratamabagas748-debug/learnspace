@@ -21,11 +21,11 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="antialiased bg-white min-h-screen">
+<body class="antialiased bg-white min-h-screen learnspace-theme auth-theme">
 <div class="min-h-screen flex">
 
     {{-- ==================== LEFT PANEL ==================== --}}
-    <div class="hidden lg:flex lg:w-[52%] xl:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800">
+    <div class="auth-brand-panel hidden lg:flex lg:w-[52%] xl:w-1/2 relative overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800">
         {{-- Decorative blobs --}}
         <div class="blob absolute -top-20 -left-20 w-72 h-72 bg-white/5"></div>
         <div class="blob absolute bottom-10 right-0 w-96 h-96 bg-violet-500/20" style="animation-delay:-4s"></div>

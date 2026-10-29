@@ -3,17 +3,26 @@
 @section('meta_description', 'Jelajahi semua kursus di LearnSpace. Filter berdasarkan kategori, level, dan kata kunci.')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 py-10">
+<div class="courses-discovery-page max-w-7xl mx-auto px-4 py-8 sm:py-10">
 
     {{-- Header --}}
-    <div class="mb-8">
-        <h1 class="text-3xl font-extrabold text-slate-900">Jelajahi Kursus</h1>
-        <p class="text-slate-500 mt-1">Temukan kursus yang tepat untuk tujuan belajar Anda</p>
+    <div class="courses-discovery-hero mb-7 sm:mb-8">
+        <div class="courses-discovery-hero-copy">
+            <span class="courses-discovery-eyebrow"><span></span> LEARN • BUILD • GROW</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold">Jelajahi Kursus</h1>
+            <p>Temukan skill berikutnya, bangun proyek nyata, dan selangkah lebih dekat ke tujuanmu.</p>
+            <div class="courses-discovery-tags"><span>✦ Materi terstruktur</span><span>↗ Belajar sesuai ritme</span></div>
+        </div>
+        <div class="courses-discovery-hero-art" aria-hidden="true">
+            <span class="courses-discovery-orbit courses-discovery-orbit-one"></span><span class="courses-discovery-orbit courses-discovery-orbit-two"></span>
+            <div class="courses-discovery-book"><span class="courses-discovery-book-mark">LS</span><strong>YOUR NEXT<br>CHAPTER</strong><small>LEARNING PATH</small><div><i></i><i></i><i></i></div></div>
+            <span class="courses-discovery-float courses-discovery-float-one">⌘ Skill up</span><span class="courses-discovery-float courses-discovery-float-two">✦ Keep growing</span>
+        </div>
     </div>
 
     {{-- Search & Filter --}}
     <form method="GET" action="{{ route('courses.index') }}" class="mb-8">
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4">
+        <div class="courses-discovery-filter bg-white border border-slate-100 rounded-2xl shadow-sm p-4">
             <div class="flex flex-col sm:flex-row gap-3">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
